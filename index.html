@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Builder Frame Generator | HH Goa 2026</title>
+  <meta name="description" content="Create your HH Goa 2026 Builder Frame & ID Card. Upload your photo, customize, and share with #FrameInGoa.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌴</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- HEIC support for non-Safari browsers -->
+  <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js" defer></script>
+</head>
+<body>
+
+  <!-- ============================================================
+       TEMPLATE HERO (Hacker House Aesthetic)
+       ============================================================ -->
+  <header class="template-hero-wrapper">
+    <div class="template-hero">
+      <img src="assets/Sun%20rise.png" alt="" aria-hidden="true" class="hero-bg-img">
+      
+      <!-- Top Left Logo -->
+      <a href="https://hhgoa.com" class="hero-logo" target="_blank" rel="noopener noreferrer">
+        <img src="assets/2-47.svg" alt="2:47 PM Studio">
+      </a>
+      
+      <!-- Top Right Nav -->
+      <a href="#sectionImpact" class="hero-link-hype">SEE EXAMPLES</a>
+      <a href="#uploadSection" class="hero-btn-apply">
+        <div class="btn-apply-border-top" aria-hidden="true"></div>
+        <span>GENERATE</span>
+        <div class="btn-apply-border-bottom" aria-hidden="true"></div>
+      </a>
+      
+      <!-- Center Title -->
+      <img src="assets/Hacker%20house.png" alt="Hacker House" class="hero-title-base">
+      <img src="assets/goa_hindi.svg" alt="Goa" class="hero-title-overlay">
+      <p class="hero-subtitle">BUILDER FRAME GENERATOR</p>
+      
+      <!-- Bottom Text -->
+      <p class="hero-bottom-left">GOA, INDIA &nbsp;&middot;&nbsp; 28 &ndash; 31 OCT 2026</p>
+      <p class="hero-bottom-right">2:47 pm Studio</p>
+    </div>
+  </header>
+
+  <main class="app-container" style="position: relative; z-index: 10; margin-top: 40px;">
+    <!-- Upload Zone -->
+    <div class="upload-section" id="uploadSection">
+        <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="Upload your photo">
+          <div class="upload-zone-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <p class="upload-zone-title">Drop Your Photo</p>
+          <p class="upload-zone-subtitle">or click to browse</p>
+          <div class="upload-zone-formats">
+            <span class="format-badge">JPG</span>
+            <span class="format-badge">PNG</span>
+            <span class="format-badge">HEIC</span>
+            <span class="format-badge">WebP</span>
+          </div>
+          <input type="file" id="uploadInput" class="upload-input" accept="image/jpeg,image/png,image/heic,image/heif,image/webp,.heic,.heif">
+        </div>
+      </div>
+
+      <!-- Upload Progress -->
+      <div class="upload-progress" id="uploadProgress">
+        <p class="progress-text" id="progressText">Loading...</p>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+      </div>
+
+      <!-- Error Card -->
+      <div class="error-card" id="errorCard">
+        <div class="error-card-icon">⚠️</div>
+        <p class="error-card-title">Something Went Wrong</p>
+        <p class="error-card-message" id="errorMessage">Please try again with a different image.</p>
+        <button class="btn-retry" id="btnRetry">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+          Try Again
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         GENERATOR
+         ============================================================ -->
+    <section class="generator" id="generator">
+      <div class="generator-layout">
+        
+        <!-- Preview Panel -->
+        <div class="preview-panel">
+          <div class="preview-container">
+            <div class="preview-canvas-wrapper" id="previewWrapper">
+              <canvas id="previewCanvas"></canvas>
+            </div>
+            <span class="preview-label" id="previewLabel">LIVE PREVIEW · 1080×1080</span>
+          </div>
+          <button class="btn-change-photo" id="btnChangePhoto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            Change Photo
+          </button>
+          <input type="file" id="changePhotoInput" class="upload-input" accept="image/jpeg,image/png,image/heic,image/heif,image/webp,.heic,.heif">
+        </div>
+
+        <!-- Controls Panel -->
+        <div class="controls-panel">
+          <div class="controls-header">
+            <h2 class="controls-title">Customize</h2>
+            <p class="controls-subtitle">Personalize your builder identity</p>
+          </div>
+
+          <!-- Mode Toggle -->
+          <div class="mode-toggle" role="radiogroup" aria-label="Generator mode">
+            <button class="mode-toggle-btn active" id="modeFrame" role="radio" aria-checked="true">
+              🖼️ Profile Frame
+            </button>
+            <button class="mode-toggle-btn" id="modeCard" role="radio" aria-checked="false">
+              🪪 Builder ID Card
+            </button>
+          </div>
+
+          <!-- Name Input -->
+          <div class="input-group">
+            <label class="input-label" for="inputName">Your Name</label>
+            <input type="text" class="input-field" id="inputName" placeholder="e.g. Arjun Mehta" maxlength="40" autocomplete="name">
+          </div>
+
+          <!-- Builder Title -->
+          <div class="input-group">
+            <label class="input-label">Builder Class</label>
+            <div class="title-display">
+              <div class="title-value" id="titleValue">Bug Whisperer</div>
+              <button class="title-shuffle-btn" id="titleShuffle" aria-label="Generate new builder title">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10"/>
+                  <polyline points="1 20 1 14 7 14"/>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card-only fields -->
+          <div class="card-only-fields" id="cardOnlyFields">
+            <div class="input-group">
+              <label class="input-label" for="inputStack">Tech Stack</label>
+              <input type="text" class="input-field" id="inputStack" placeholder="e.g. React, Node, Python" maxlength="60">
+            </div>
+
+            <div class="input-group">
+              <label class="input-label" for="inputRole">Role</label>
+              <input type="text" class="input-field" id="inputRole" placeholder="e.g. Full Stack Developer" maxlength="40">
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="actions">
+            <button class="btn-primary" id="btnDownload">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <span id="btnDownloadText">Download PNG</span>
+            </button>
+            
+            <button class="btn-secondary" id="btnShare">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+                <polyline points="16 6 12 2 8 6"/>
+                <line x1="12" y1="2" x2="12" y2="15"/>
+              </svg>
+              Share on 𝕏 with #FrameInGoa
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       SECTION: THE ROAD TO GOA (Impact)
+       ============================================================ -->
+  <section class="section-impact" id="sectionImpact">
+    <div class="section-impact-inner">
+      <div class="section-impact-text reveal-on-scroll">
+        <p class="section-label">THE ROAD TO GOA</p>
+        <h2 class="section-heading">Claim Your<br><span class="accent">Builder Identity</span></h2>
+        <p class="section-body">
+          6800+ registrations. 390+ hackers. 100 projects shipped.<br>
+          $50K+ in bounties. And it's just getting started.
+        </p>
+        <p class="section-body-sm">
+          Mint your official HH Goa 2026 Builder ID and let the ecosystem know you're coming.
+          Your frame is your first commit to Goa.
+        </p>
+        <a href="#heroSection" class="btn-scroll-cta">
+          Create Your Frame
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <polyline points="19 12 12 19 5 12"/>
+          </svg>
+        </a>
+      </div>
+      <div class="section-impact-image reveal-on-scroll">
+        <img src="assets/details.png" alt="HH Goa stats — 6800+ registrations, 390+ hackers, 100 projects, $50K+ bounties" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION: INSIDE THE FRAME (Philosophy)
+       ============================================================ -->
+  <section class="section-philosophy" id="sectionPhilosophy">
+    <div class="section-philosophy-inner reveal-on-scroll">
+      <p class="philosophy-label">INSIDE THE FRAME</p>
+      <h2 class="philosophy-heading">
+        1 Photo. Your Stack.<br>
+        <span class="pink">Endless Intent.</span>
+      </h2>
+      <p class="philosophy-body">
+        Less noise. More signal.<br>
+        Your builder frame isn't decoration — it's a declaration.
+      </p>
+      <div class="philosophy-divider">
+        <img src="assets/goa_hindi.svg" alt="" class="philosophy-goa" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION: YOUR IDENTITY, COMPILED (Process)
+       ============================================================ -->
+  <section class="template-process-wrapper" id="sectionProcess">
+    <div class="template-process">
+      <img src="assets/agenda.png" alt="HH Goa agenda — 4 days of building" loading="lazy" class="process-bg-img">
+      
+      <div class="process-step-overlay step-1">
+        <p class="process-step-title-exact">01 - UPLOAD GENESIS</p>
+        <p class="process-step-desc-exact">DROP YOUR BEST PHOTO</p>
+      </div>
+      
+      <div class="process-step-overlay step-2">
+        <p class="process-step-title-exact">03 - CLAIM YOUR TITLE</p>
+        <p class="process-step-desc-exact">CHAOS COMPILER. MIDNIGHT DEPLOYER.</p>
+      </div>
+      
+      <div class="process-step-overlay step-3">
+        <p class="process-step-title-exact">02 - DEFINE YOUR STACK</p>
+        <p class="process-step-desc-exact">TELL US WHAT YOU BUILD</p>
+      </div>
+      
+      <div class="process-step-overlay step-4">
+        <p class="process-step-title-exact">04 - LAUNCH DAY</p>
+        <p class="process-step-desc-exact">DOWNLOAD YOUR FRAME. SHARE ON 𝕏.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION: BUILT FOR THE BUILDERS (Community)
+       ============================================================ -->
+  <section class="section-community" id="sectionCommunity">
+    <div class="section-community-inner">
+      <div class="section-community-text reveal-on-scroll">
+        <p class="section-label">BUILT FOR THE BUILDERS</p>
+        <h2 class="section-heading">See You On<br><span class="accent">The Sand.</span></h2>
+        <p class="section-body">
+          390+ builders. One beach. Four days of shipping.<br>
+          Your frame is your ticket to the tribe.
+        </p>
+        <a href="#uploadSection" class="btn-scroll-cta">
+          Generate Your Frame Now
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <polyline points="19 12 12 19 5 12"/>
+          </svg>
+        </a>
+      </div>
+      <div class="section-community-image reveal-on-scroll">
+        <img src="assets/hackers.png" alt="Builders coding at a table in Goa" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="app-container">
+      <p class="footer-hashtag">#FrameInGoa</p>
+      <p class="footer-text" style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+        Made for <a href="https://hhgoa.com" target="_blank" rel="noopener noreferrer">HH Goa 2026</a> · 28–31 Oct · Goa, India · 
+        <a href="https://x.com/247pmstudio" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center;">
+          <img src="assets/2-47.svg" alt="2:47 PM Studio" style="height: 18px; margin-left: 4px;">
+        </a>
+      </p>
+    </div>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
