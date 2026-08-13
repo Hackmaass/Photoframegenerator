@@ -6,7 +6,7 @@
   <title>Builder Frame Generator | HH Goa 2026</title>
   <meta name="description" content="Create your HH Goa 2026 Builder Frame & ID Card. Upload your photo, customize, and share with #FrameInGoa.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌴</text></svg>">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=3Dfolder">
   
   <!-- HEIC support for non-Safari browsers -->
   <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js" defer></script>
@@ -22,7 +22,7 @@
       
       <!-- Top Left Logo -->
       <a href="https://hhgoa.com" class="hero-logo" target="_blank" rel="noopener noreferrer">
-        <img src="assets/2-47.svg" alt="2:47 PM Studio">
+        <img src="assets/facons png.png" alt="2:47 PM Studio">
       </a>
       
       <!-- Top Right Nav -->
@@ -39,31 +39,33 @@
       <p class="hero-subtitle">BUILDER FRAME GENERATOR</p>
       
       <!-- Bottom Text -->
-      <p class="hero-bottom-left">GOA, INDIA &nbsp;&middot;&nbsp; 28 &ndash; 31 OCT 2026</p>
-      <p class="hero-bottom-right">2:47 pm Studio</p>
+      <p class="hero-bottom-left">GOA, INDIA &nbsp;&middot;&nbsp; From NMIET &ndash; Pune</p>
+      <p class="hero-bottom-right">Falcons</p>
     </div>
   </header>
 
   <main class="app-container" style="position: relative; z-index: 10; margin-top: 40px;">
     <!-- Upload Zone -->
     <div class="upload-section" id="uploadSection">
-        <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="Upload your photo">
-          <div class="upload-zone-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="17 8 12 3 7 8"/>
-              <line x1="12" y1="3" x2="12" y2="15"/>
-            </svg>
+        <div class="upload-zone container" id="uploadZone" role="button" tabindex="0" aria-label="Upload your photo">
+          <div class="folder">
+            <div class="front-side">
+              <div class="tip"></div>
+              <div class="cover"></div>
+            </div>
+            <div class="back-side cover"></div>
           </div>
-          <p class="upload-zone-title">Drop Your Photo</p>
-          <p class="upload-zone-subtitle">or click to browse</p>
+          <label class="custom-file-upload">
+            <input type="file" id="uploadInput" class="upload-input title" accept="image/jpeg,image/png,image/heic,image/heif,image/webp,.heic,.heif">
+            <span class="upload-btn-title">Upload a File</span>
+            <span class="upload-btn-sub">or drop your photo here</span>
+          </label>
           <div class="upload-zone-formats">
             <span class="format-badge">JPG</span>
             <span class="format-badge">PNG</span>
             <span class="format-badge">HEIC</span>
             <span class="format-badge">WebP</span>
           </div>
-          <input type="file" id="uploadInput" class="upload-input" accept="image/jpeg,image/png,image/heic,image/heif,image/webp,.heic,.heif">
         </div>
       </div>
 
@@ -193,31 +195,34 @@
   </main>
 
   <!-- ============================================================
-       SECTION: THE ROAD TO GOA (Impact)
+       SECTION: THE ROAD TO GOA (Impact / Details)
        ============================================================ -->
-  <section class="section-impact" id="sectionImpact">
-    <div class="section-impact-inner">
-      <div class="section-impact-text reveal-on-scroll">
-        <p class="section-label">THE ROAD TO GOA</p>
-        <h2 class="section-heading">Claim Your<br><span class="accent">Builder Identity</span></h2>
-        <p class="section-body">
-          6800+ registrations. 390+ hackers. 100 projects shipped.<br>
-          $50K+ in bounties. And it's just getting started.
-        </p>
-        <p class="section-body-sm">
-          Mint your official HH Goa 2026 Builder ID and let the ecosystem know you're coming.
-          Your frame is your first commit to Goa.
-        </p>
-        <a href="#heroSection" class="btn-scroll-cta">
-          Create Your Frame
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <polyline points="19 12 12 19 5 12"/>
-          </svg>
-        </a>
+  <section class="template-details-wrapper" id="sectionImpact">
+    <div class="template-details">
+      <img src="assets/details.png" alt="HH Goa stats" loading="lazy" class="details-bg-img">
+      
+      <!-- Box 1: Registrations -->
+      <div class="details-stat-overlay stat-1">
+        <p class="details-stat-num">6800+</p>
+        <p class="details-stat-label">Registrations</p>
       </div>
-      <div class="section-impact-image reveal-on-scroll">
-        <img src="assets/details.png" alt="HH Goa stats — 6800+ registrations, 390+ hackers, 100 projects, $50K+ bounties" loading="lazy">
+
+      <!-- Box 2: Hackers -->
+      <div class="details-stat-overlay stat-2">
+        <p class="details-stat-num">390+</p>
+        <p class="details-stat-label">Hackers</p>
+      </div>
+
+      <!-- Box 3: Projects -->
+      <div class="details-stat-overlay stat-3">
+        <p class="details-stat-num">100+</p>
+        <p class="details-stat-label">Projects</p>
+      </div>
+
+      <!-- Box 4: Bounties -->
+      <div class="details-stat-overlay stat-4">
+        <p class="details-stat-num">$50k+</p>
+        <p class="details-stat-label">Bounties</p>
       </div>
     </div>
   </section>
@@ -274,26 +279,23 @@
   <!-- ============================================================
        SECTION: BUILT FOR THE BUILDERS (Community)
        ============================================================ -->
-  <section class="section-community" id="sectionCommunity">
-    <div class="section-community-inner">
-      <div class="section-community-text reveal-on-scroll">
-        <p class="section-label">BUILT FOR THE BUILDERS</p>
-        <h2 class="section-heading">See You On<br><span class="accent">The Sand.</span></h2>
-        <p class="section-body">
-          390+ builders. One beach. Four days of shipping.<br>
-          Your frame is your ticket to the tribe.
-        </p>
-        <a href="#uploadSection" class="btn-scroll-cta">
-          Generate Your Frame Now
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <polyline points="19 12 12 19 5 12"/>
-          </svg>
-        </a>
+  <section class="template-community-wrapper" id="sectionCommunity">
+    <div class="template-community">
+      <div class="community-text-row">
+        <h2 class="community-title">BUILT FOR<br>THE BUILDERS</h2>
+        <div class="community-desc-wrapper">
+          <p class="community-desc">
+            390+ builders. One beach. Four days of shipping.<br>
+            Your frame is your ticket to the tribe. Mint your official HH Goa 2026 Builder ID and let the ecosystem know you're coming.
+          </p>
+          <a href="#uploadSection" class="community-cta">
+            <span class="cta-text">GENERATE YOUR FRAME</span>
+            <div class="cta-border-top"></div>
+            <div class="cta-border-bottom"></div>
+          </a>
+        </div>
       </div>
-      <div class="section-community-image reveal-on-scroll">
-        <img src="assets/hackers.png" alt="Builders coding at a table in Goa" loading="lazy">
-      </div>
+      <img src="assets/hackers.png" alt="Builders coding at a table in Goa" loading="lazy" class="community-bg-img">
     </div>
   </section>
 
@@ -306,7 +308,7 @@
       <p class="footer-text" style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
         Made for <a href="https://hhgoa.com" target="_blank" rel="noopener noreferrer">HH Goa 2026</a> · 28–31 Oct · Goa, India · 
         <a href="https://x.com/247pmstudio" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center;">
-          <img src="assets/2-47.svg" alt="2:47 PM Studio" style="height: 18px; margin-left: 4px;">
+          <img src="assets/facons png.png" alt="2:47 PM Studio" style="height: 18px; margin-left: 4px;">
         </a>
       </p>
     </div>
