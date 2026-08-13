@@ -286,28 +286,34 @@ export async function generateFrame(canvas, img, opts = {}) {
   // --- Bottom Logo Area ---
   try {
     const hhLogo = await loadImageFromUrl('assets/Hacker%20house.png');
-    const hlH = 32;
+    const hlH = 26; // Reduced height slightly to fit text better
     const hlW = hhLogo.width * (hlH / hhLogo.height);
-    ctx.drawImage(hhLogo, (SIZE - hlW) / 2, SIZE - BOTTOM_H + 26, hlW, hlH);
+    ctx.drawImage(hhLogo, (SIZE - hlW) / 2, SIZE - BOTTOM_H + 16, hlW, hlH);
   } catch (e) {
-    ctx.font = '700 52px "Imbue", serif';
+    ctx.font = '700 36px "Imbue", serif';
     ctx.fillStyle = YELLOW;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('HACKER HOUSE GOA', SIZE / 2, SIZE - BOTTOM_H + 42);
+    ctx.fillText('HACKER HOUSE', SIZE / 2, SIZE - BOTTOM_H + 28);
   }
   
-  // Event details
-  ctx.font = '600 18px "Victor Mono", monospace';
-  ctx.fillStyle = OFFWHITE;
-  ctx.globalAlpha = 0.8;
-  ctx.fillText('28 – 31 OCT 2026  ·  GOA, INDIA', SIZE / 2, SIZE - BOTTOM_H + 80);
-  ctx.globalAlpha = 1;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
   
-  // Year badge
-  ctx.font = '700 16px "Victor Mono", monospace';
-  ctx.fillStyle = PINK;
-  ctx.fillText('2026', SIZE / 2, SIZE - BOTTOM_H + 104);
+  // Builder Name
+  const nameText = (opts.name || 'BUILDER').toUpperCase();
+  ctx.font = '700 44px "Imbue", serif';
+  ctx.fillStyle = YELLOW;
+  ctx.globalAlpha = 1;
+  ctx.fillText(nameText, SIZE / 2, SIZE - BOTTOM_H + 66);
+  
+  // Builder Title
+  const titleText = (opts.title || 'HACKER').toUpperCase();
+  ctx.font = '600 17px "Victor Mono", monospace';
+  ctx.fillStyle = OFFWHITE;
+  ctx.globalAlpha = 0.9;
+  ctx.fillText(titleText, SIZE / 2, SIZE - BOTTOM_H + 100);
+  ctx.globalAlpha = 1;
   
   // --- Pink accent line ---
   ctx.fillStyle = PINK;
