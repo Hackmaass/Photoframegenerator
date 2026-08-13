@@ -1536,10 +1536,10 @@ input, textarea { font: inherit; color: inherit; }
 
 .laptop-screen-logo {
   position: absolute;
-  top: 66%;
-  left: 38%;
-  width: 24%;
-  height: 17%;
+  top: 69%;
+  left: 42%;
+  width: 16%;
+  height: 12%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1716,6 +1716,48 @@ input, textarea { font: inherit; color: inherit; }
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* ============================================================
+   EXAMPLES SECTION
+   ============================================================ */
+.section-examples {
+  padding: var(--space-12) 0;
+  background-color: var(--brand-primary-dark);
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.examples-heading {
+  font-family: var(--font-heading);
+  color: var(--brand-accent);
+  font-size: 3.5rem;
+  margin-bottom: var(--space-8);
+  letter-spacing: 2px;
+}
+
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+  padding: 0 var(--space-4);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.example-img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  object-fit: contain;
+  background-color: var(--brand-white);
+}
+
+.example-img:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
 /* ============================================================
