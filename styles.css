@@ -327,7 +327,18 @@ input, textarea { font: inherit; color: inherit; }
 /* --- 3D Folder Upload Zone (Themed Green Accent) --- */
 .upload-section {
   animation: fadeInUp 0.6s var(--ease-out) 0.3s both;
-  padding-top: 25px;
+  background-image: url('assets/upload-bg.png');
+  background-size: cover;
+  background-position: center bottom;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .upload-zone.container {
@@ -506,14 +517,14 @@ input, textarea { font: inherit; color: inherit; }
 .format-badge {
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
   font-family: var(--font-body);
   font-weight: 700;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #000000;
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .upload-input {
@@ -1723,7 +1734,7 @@ input, textarea { font: inherit; color: inherit; }
    ============================================================ */
 .section-examples {
   padding: var(--space-12) 0;
-  background-color: var(--brand-primary-dark);
+  background-color: var(--brand-primary);
   text-align: center;
   position: relative;
   z-index: 10;

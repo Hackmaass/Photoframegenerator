@@ -7,6 +7,7 @@
   <meta name="description" content="Create your HH Goa 2026 Builder Frame & ID Card. Upload your photo, customize, and share with #FrameInGoa.">
   <link rel="icon" type="image/png" href="assets/facons%20png.png">
   <link rel="stylesheet" href="styles.css?v=3Dfolder">
+  <link rel="stylesheet" href="doodle-upload.css">
   
   <!-- HEIC support for non-Safari browsers -->
   <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js" defer></script>
@@ -47,27 +48,62 @@
   <main class="app-container" style="position: relative; z-index: 10; margin-top: 40px;">
     <!-- Upload Zone -->
     <div class="upload-section" id="uploadSection">
-        <div class="upload-zone container" id="uploadZone" role="button" tabindex="0" aria-label="Upload your photo">
-          <div class="folder">
-            <div class="front-side">
-              <div class="tip"></div>
-              <div class="cover"></div>
+      <div style="position: relative;">
+        <svg style="position: absolute; width: 0; height: 0; overflow: hidden" aria-hidden="true">
+          <defs>
+            <filter id="doodle-jitter" x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+          </defs>
+        </svg>
+        <label class="doodle-upload-container" tabindex="0" id="uploadZone">
+          <input class="hidden-file-input" type="file" id="uploadInput" accept="image/jpeg,image/png,image/heic,image/heif,image/webp,.heic,.heif" />
+          <div class="doodle-folder">
+            <div class="folder-back">
+              <div class="folder-tab"></div>
             </div>
-            <div class="back-side cover"></div>
+            <div class="doodle-papers">
+              <div class="paper file-1">
+                <div class="scribble-line"></div>
+                <div class="scribble-line short"></div>
+                <div class="scribble-line"></div>
+              </div>
+              <div class="paper file-2">
+                <svg viewBox="0 0 24 24" class="doodle-image-icon">
+                  <rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"></circle>
+                  <path d="M21 15l-5-5L5 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="folder-front">
+              <svg class="folder-smile" viewBox="0 0 24 24">
+                <path d="M 7 14 Q 12 19 17 14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+              </svg>
+            </div>
           </div>
-          <label class="custom-file-upload">
-            <input type="file" id="uploadInput" class="upload-input title" accept="image/jpeg,image/png,image/heic,image/heif,image/webp,.heic,.heif">
-            <span class="upload-btn-title">Upload a File</span>
-            <span class="upload-btn-sub">or drop your photo here</span>
-          </label>
-          <div class="upload-zone-formats">
-            <span class="format-badge">JPG</span>
-            <span class="format-badge">PNG</span>
-            <span class="format-badge">HEIC</span>
-            <span class="format-badge">WebP</span>
+          <div class="doodle-btn">
+            <span class="btn-text">Choose a file</span>
           </div>
-        </div>
+          <svg class="doodle-decor sparkle-1" viewBox="0 0 24 24">
+            <path d="M12 0C12 6.6 17.4 12 24 12C17.4 12 12 17.4 12 24C12 17.4 6.6 12 0 12C6.6 12 12 6.6 12 0Z" fill="var(--btn-hover)" stroke="currentColor" stroke-width="1.5"></path>
+          </svg>
+          <svg class="doodle-decor star-1" viewBox="0 0 24 24">
+            <path d="M12 2L15 9L22 10L17 15L18.5 22L12 18.5L5.5 22L7 15L2 10L9 9L12 2Z" fill="var(--accent-blue)" stroke="currentColor" stroke-width="1.5"></path>
+          </svg>
+          <svg class="doodle-paperclip" viewBox="0 0 24 24">
+            <path d="M 12 4 L 12 18 C 12 20 9 20 9 18 L 9 6 C 9 3 15 3 15 6 L 15 16 C 15 18 13 18 13 16 L 13 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </label>
       </div>
+      <div class="upload-zone-formats" style="margin-top: 25px;">
+        <span class="format-badge">JPG</span>
+        <span class="format-badge">PNG</span>
+        <span class="format-badge">HEIC</span>
+        <span class="format-badge">WebP</span>
+      </div>
+    </div>
 
       <!-- Upload Progress -->
       <div class="upload-progress" id="uploadProgress">
