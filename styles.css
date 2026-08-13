@@ -1834,18 +1834,61 @@ input, textarea { font: inherit; color: inherit; }
     min-width: 36px;
   }
 
-  .hero-title {
-    font-size: clamp(32px, 10vw, 48px) !important;
-  }
-  
-  .hero-subtitle {
-    font-size: 16px !important;
+  /* Fix absolute positioning overlaps on mobile */
+  .template-hero {
+    min-height: auto;
+    aspect-ratio: auto;
+    padding-bottom: 20%;
   }
 
-  .hero-header {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-4);
+  .hero-bg-img {
+    position: absolute;
+  }
+
+  .hero-logo {
+    position: absolute;
+    top: 4%;
+    left: 5%;
+    transform: none;
+  }
+  
+  .hero-logo img {
+    width: 60px;
+  }
+
+  .hero-link-hype {
+    top: 6%;
+    right: 5%;
+    font-size: 12px;
+  }
+
+  .hero-btn-apply {
+    top: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 44px;
+    font-size: 20px;
+    right: auto;
+  }
+
+  .hero-title-base {
+    top: 25%;
+    width: 90%;
+    left: 5%;
+  }
+
+  .hero-title-overlay {
+    top: 30%;
+    width: 15%;
+    left: 42%;
+  }
+
+  .hero-subtitle {
+    top: 42%;
+    font-size: 14px !important;
+    width: 80%;
+    text-align: center;
   }
 }
 
