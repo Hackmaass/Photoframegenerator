@@ -12,6 +12,7 @@ import { generateTitle, generateRandomTitle } from './titles.js';
 
 const state = {
   mode: 'frame', // 'frame' | 'card'
+  theme: 'formal', // 'formal' | 'goa'
   phase: 'upload', // 'upload' | 'generating' | 'ready'
   image: null, // HTMLImageElement
   name: '',
@@ -46,6 +47,8 @@ function cacheElements() {
     previewLabel: $('#previewLabel'),
     modeFrame: $('#modeFrame'),
     modeCard: $('#modeCard'),
+    themeFormal: $('#themeFormal'),
+    themeGoa: $('#themeGoa'),
     inputName: $('#inputName'),
     inputStack: $('#inputStack'),
     inputRole: $('#inputRole'),
@@ -102,6 +105,10 @@ function bindEvents() {
   // Mode toggle
   els.modeFrame.addEventListener('click', () => setMode('frame'));
   els.modeCard.addEventListener('click', () => setMode('card'));
+  
+  // Theme toggle
+  els.themeFormal.addEventListener('click', () => setTheme('formal'));
+  els.themeGoa.addEventListener('click', () => setTheme('goa'));
   
   // Input changes (live preview)
   els.inputName.addEventListener('input', debounce(handleInputChange, 200));
@@ -316,6 +323,22 @@ function setMode(mode) {
   }
 }
 
+function setTheme(theme) {
+  state.theme = theme;
+  
+  // Update toggle buttons
+  els.themeFormal.classList.toggle('active', theme === 'formal');
+  els.themeGoa.classList.toggle('active', theme === 'goa');
+  
+  // Re-render
+  if (state.image) {
+    state.isDownloaded = false;
+    els.btnDownload.classList.remove('downloaded');
+    els.btnDownloadText.textContent = 'Download PNG';
+    renderPreview();
+  }
+}
+
 function handleInputChange() {
   state.name = els.inputName.value;
   state.stack = els.inputStack.value;
@@ -361,6 +384,7 @@ async function renderPreview() {
     stack: state.stack,
     role: state.role,
     title: state.title,
+    theme: state.theme,
   };
   
   try {

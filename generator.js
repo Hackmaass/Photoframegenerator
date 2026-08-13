@@ -177,6 +177,23 @@ export async function generateFrame(canvas, img, opts = {}) {
   canvas.height = SIZE;
   const ctx = canvas.getContext('2d');
   
+  const theme = opts.theme || 'formal';
+  let templatePath = '';
+  if (theme === 'formal') {
+    templatePath = 'assets/Profile/2.png';
+  } else if (theme === 'goa') {
+    templatePath = 'assets/Profile/4.png';
+  }
+  
+  let templateImg = null;
+  try {
+    if (templatePath) {
+      templateImg = await loadImageFromUrl(templatePath);
+    }
+  } catch (e) {
+    console.warn('Could not load profile template:', e);
+  }
+  
   // Colors
   const GREEN = '#0B6839';
   const YELLOW = '#FEE101';
@@ -342,6 +359,35 @@ export async function generateFrame(canvas, img, opts = {}) {
     ctx.globalAlpha = 1;
   }
   
+  // Draw Template
+  if (templateImg) {
+    ctx.clearRect(0, 0, SIZE, SIZE); // Clear the custom drawing
+    
+    // Draw template FIRST (so the opaque placeholder is below our photo)
+    ctx.drawImage(templateImg, 0, 0, SIZE, SIZE);
+    
+    // Draw photo ON TOP of the placeholder
+    // Both Formal and Goa Profile Frames have the same huge circular placeholder
+    // Center: X=540, Y=500. Radius: ~420.
+    drawCircularImage(ctx, img, 540, 500, 420, 0, '', null);
+    
+    // Overlay Hindi text so it sits on top of the photo
+    try {
+      const goaHindi = await loadImageFromUrl('assets/goa_hindi.svg');
+      if (theme === 'formal') {
+        ctx.filter = 'grayscale(100%)';
+      }
+      // Scaled and adjusted to perfectly align with the baked-in text behind the photo
+      ctx.drawImage(goaHindi, 190, 704, 312, 275);
+      
+      if (theme === 'formal') {
+        ctx.filter = 'none'; // reset filter
+      }
+    } catch (e) {
+      console.warn('Could not load goa_hindi overlay:', e);
+    }
+  }
+  
   ctx.restore();
 }
 
@@ -373,6 +419,23 @@ export async function generateCard(canvas, img, opts = {}) {
   const WHITE = '#FFFFFF';
   const OFFWHITE = '#FFFBE8';
   const GOLD = '#EDD723';
+  
+  const theme = opts.theme || 'formal';
+  let templatePath = '';
+  if (theme === 'formal') {
+    templatePath = 'assets/ID/2.png';
+  } else if (theme === 'goa') {
+    templatePath = 'assets/ID/4.png';
+  }
+  
+  let templateImg = null;
+  try {
+    if (templatePath) {
+      templateImg = await loadImageFromUrl(templatePath);
+    }
+  } catch (e) {
+    console.warn('Could not load ID template:', e);
+  }
   
   const name = opts.name || 'Builder';
   const stack = opts.stack || 'Full Stack';
@@ -648,6 +711,130 @@ export async function generateCard(canvas, img, opts = {}) {
   ctx.save();
   ctx.translate(MARGIN - 10, CARD_Y - 10);
   drawCornerAccents(ctx, CARD_W + 20, CARD_H + 20, YELLOW, 20);
+  ctx.restore();
+  
+  // Draw Template if it exists, covering the generated card
+  if (templateImg) {
+    ctx.clearRect(0, 0, W, H);
+    
+    // Draw template FIRST (opaque placeholder is below our photo)
+    ctx.drawImage(templateImg, 0, 0, W, H);
+    
+    // Draw photo ON TOP of the placeholder
+    // The original template is 1440px high, drawn to 1350px canvas (scale 0.9375).
+    // Original circle center Y = 779, radius = 259.
+    // Scaled Center Y = 730, Radius = 245.
+    drawCircularImage(ctx, img, 540, 730, 245, 0, '', null);
+    
+    // Draw text over the template
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    
+    const nameText = name.toUpperCase();
+    const roleText = role.toUpperCase();
+    const titleText = `« ${title.toUpperCase()} »`;
+    const stacks = stack.split(',').map(s => s.trim()).filter(s => s.length > 0).slice(0, 4);
+    
+    if (theme === 'formal') {
+      const roleY = 975;
+      drawRoleBadge(ctx, roleText, 540, roleY, '#FACC15', '#0F172A', null);
+
+      const nameY = 1050;
+      ctx.font = '700 54px "Imbue", serif';
+      ctx.fillStyle = '#000000'; // properly in black font
+      drawTruncatedText(ctx, nameText, 540, nameY, W - 160);
+      
+      const stackY = 1125;
+      drawStackBadges(ctx, stacks, 540, stackY, '#E2E8F0', '#0F172A');
+      
+      const titleY = 1200;
+      ctx.font = '700 38px "Imbue", serif';
+      ctx.fillStyle = PINK;
+      drawTruncatedText(ctx, titleText, 540, titleY, W - 160);
+      
+    } else if (theme === 'goa') {
+      const roleY = 975;
+      drawRoleBadge(ctx, roleText, 540, roleY, '#FACC15', '#311042', null);
+
+      const nameY = 1050;
+      ctx.font = '700 54px "Imbue", serif';
+      ctx.fillStyle = '#000000'; // properly in black font
+      drawTruncatedText(ctx, nameText, 540, nameY, W - 160);
+      
+      const stackY = 1125;
+      drawStackBadges(ctx, stacks, 540, stackY, 'rgba(255, 255, 255, 0.4)', '#311042');
+      
+      const titleY = 1200;
+      ctx.font = '700 38px "Imbue", serif';
+      ctx.fillStyle = PINK;
+      drawTruncatedText(ctx, titleText, 540, titleY, W - 160);
+    }
+  }
+}
+
+function drawRoleBadge(ctx, text, x, y, bgColor, textColor, borderColor) {
+  if (!text) return;
+  ctx.save();
+  ctx.font = '700 16px sans-serif';
+  ctx.textBaseline = 'middle';
+  
+  const bw = ctx.measureText(text).width + 32;
+  const bh = 36;
+  const bx = x - bw / 2;
+  const by = y - bh / 2;
+  
+  roundRect(ctx, bx, by, bw, bh, bh / 2);
+  ctx.fillStyle = bgColor;
+  ctx.fill();
+  
+  if (borderColor) {
+    roundRect(ctx, bx, by, bw, bh, bh / 2);
+    ctx.strokeStyle = borderColor;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+  
+  ctx.fillStyle = textColor;
+  ctx.textAlign = 'center';
+  ctx.fillText(text, x, y + 2);
+  ctx.restore();
+}
+
+function drawStackBadges(ctx, stacks, centerX, y, bgColor, textColor) {
+  if (!stacks.length) return;
+  
+  ctx.save();
+  ctx.font = '700 14px sans-serif';
+  ctx.textBaseline = 'middle';
+  const badgeH = 28;
+  const badgePadX = 16;
+  const badgeGap = 8;
+  
+  let totalBadgeW = 0;
+  const badgeWidths = [];
+  for (const s of stacks) {
+    const tw = ctx.measureText(s.toUpperCase()).width + badgePadX * 2;
+    badgeWidths.push(tw);
+    totalBadgeW += tw;
+  }
+  totalBadgeW += (stacks.length - 1) * badgeGap;
+  
+  let bx = centerX - totalBadgeW / 2;
+  for (let i = 0; i < stacks.length; i++) {
+    const bw = badgeWidths[i];
+    
+    // Badge bg
+    roundRect(ctx, bx, y - badgeH / 2, bw, badgeH, badgeH / 2);
+    ctx.fillStyle = bgColor;
+    ctx.fill();
+    
+    // Badge text
+    ctx.fillStyle = textColor;
+    ctx.textAlign = 'center';
+    ctx.fillText(stacks[i].toUpperCase(), bx + bw / 2, y + 1);
+    
+    bx += bw + badgeGap;
+  }
   ctx.restore();
 }
 
