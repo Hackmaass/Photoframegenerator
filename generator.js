@@ -378,6 +378,7 @@ export async function generateFrame(canvas, img, opts = {}) {
         ctx.filter = 'grayscale(100%)';
       }
       // Scaled and adjusted to perfectly align with the baked-in text behind the photo
+      // Adjust the goa text from here.
       ctx.drawImage(goaHindi, 190, 704, 312, 275);
       
       if (theme === 'formal') {
